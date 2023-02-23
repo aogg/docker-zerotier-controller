@@ -36,16 +36,21 @@ jobs:
 
     # Login to DockerHub with username and token
     - name: Login to DockerHub with username and token
-      uses: docker/login-action@v1
+      uses: docker/login-action@v2
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     # Build image and push to DockerHub
     - name: "Build image and push to DockerHub"
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v3
       with:
         context: .
         push: true
-        tags: sbilly/zerotier-controller:latest
-    
+        pull: true
+        labels: true
+        # 构建参数
+        build-args: |
+           ZEROTIER_ONE_VERSION=1.10.3
+        #   APK_ARG=rsync
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/zerotier-ui-mkworld:latest,${{ secrets.DOCKERHUB_USERNAME }}/zerotier-controller:latest,${{ secrets.DOCKERHUB_USERNAME }}/zerotier-ui-mkworld:1.10.3,${{ secrets.DOCKERHUB_USERNAME }}/zerotier-controller:1.10.3    
