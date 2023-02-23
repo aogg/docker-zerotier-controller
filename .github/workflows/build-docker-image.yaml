@@ -1,4 +1,4 @@
-name: 'Build docker image'
+name: '构建docker镜像'
 on: 
   # Auto build on push to main branch
   push:
@@ -35,7 +35,7 @@ jobs:
       uses: docker/setup-qemu-action@v1
 
     # Login to DockerHub with username and token
-    - name: Login to DockerHub with username and token
+    - name: 登录docker
       uses: docker/login-action@v2
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
